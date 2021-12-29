@@ -1,0 +1,60 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly project(':client')
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+// task copyWebApp(type: Copy) {
+// 	println 'copyWebApp'
+// 	from '$rootDir/client/build'
+// 	into '$rootDir/server/build/resources/main/static/.'
+// }
+// def copyWebApp = tasks.register('copyWebApp', Copy) {
+//     from '$rootDir/client/build'
+// 	into '$rootDir/server/build/resources/main/static/.'
+// }
+
+def copyWebApp = tasks.register('copyWebApp', Copy) {
+	def engine = new groovy.text.SimpleTemplateEngine()
+	def binding = ['rootDir':rootDir]
+	def _from = '$rootDir/client/build'
+	def _into = '$rootDir/server/build/resources/main/static/.'
+	from engine.createTemplate(_from).make(binding).toString()
+	into engine.createTemplate(_into).make(binding).toString()
+}
+
+// bootJar.dependsOn(copyWebApp)
+build.dependsOn(copyWebApp)
+bootRun.dependsOn(copyWebApp)
+// bootRun.dependsOn(copyWebAppDev)
+compileJava.dependsOn ':client:build'
+
+// tasks.register('printProps') {
+//     doLast {
+//         // println commandLineProjectProp
+//         // println gradlePropertiesProp
+//         // println systemProjectProp
+//         println 'ciao'
+//     }
+// }
