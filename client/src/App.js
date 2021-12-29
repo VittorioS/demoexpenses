@@ -34,6 +34,7 @@ const useFetch = (defaultValue) => {
 
 const App = () => {
   const [aExpenses, setExpenses] = useFetch(DUMMY_EXPENSES);
+  const [edit, setEdit] = useState(false)
 
   const handleAddExpense = async (expense) => {
     try {
@@ -58,10 +59,15 @@ const App = () => {
     }
   };
 
+  const handleEdit = (value) => {
+    setEdit(value)
+  }
   return (
     <div>
-      <NewExpense onAddExpense={handleAddExpense} />
-      <Expenses items={aExpenses} onDelete={handleDelete} />
+      <NewExpense onAddExpense={handleAddExpense} onEdit={handleEdit} />
+      {!edit && (
+        <Expenses items={aExpenses} onDelete={handleDelete} />
+      )}
     </div>
   );
 

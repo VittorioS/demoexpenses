@@ -1,3 +1,7 @@
+.new-expense--form {
+  height: 100vh;
+}
+
 .new-expense__controls {
   display: flex;
   flex-wrap: wrap;
