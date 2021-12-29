@@ -25,16 +25,6 @@ test {
 	useJUnitPlatform()
 }
 
-// task copyWebApp(type: Copy) {
-// 	println 'copyWebApp'
-// 	from '$rootDir/client/build'
-// 	into '$rootDir/server/build/resources/main/static/.'
-// }
-// def copyWebApp = tasks.register('copyWebApp', Copy) {
-//     from '$rootDir/client/build'
-// 	into '$rootDir/server/build/resources/main/static/.'
-// }
-
 def copyWebApp = tasks.register('copyWebApp', Copy) {
 	def engine = new groovy.text.SimpleTemplateEngine()
 	def binding = ['rootDir':rootDir]
@@ -44,17 +34,6 @@ def copyWebApp = tasks.register('copyWebApp', Copy) {
 	into engine.createTemplate(_into).make(binding).toString()
 }
 
-// bootJar.dependsOn(copyWebApp)
 build.dependsOn(copyWebApp)
-bootRun.dependsOn(copyWebApp)
-// bootRun.dependsOn(copyWebAppDev)
+// bootRun.dependsOn(copyWebApp)
 compileJava.dependsOn ':client:build'
-
-// tasks.register('printProps') {
-//     doLast {
-//         // println commandLineProjectProp
-//         // println gradlePropertiesProp
-//         // println systemProjectProp
-//         println 'ciao'
-//     }
-// }
