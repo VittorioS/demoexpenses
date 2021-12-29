@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.entities.item;
 
 import java.util.Date;
 import java.util.Objects;

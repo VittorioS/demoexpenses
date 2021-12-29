@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.entities.item;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ItemDatabaseLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         ArrayList<Item> items = new ArrayList<Item>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             items.add(new Item("Home " + i, i * 200.00f, "EUR", Date.from(Instant.now())));
         }
         this.repository.saveAll(items);
