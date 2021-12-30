@@ -3,8 +3,13 @@ package com.example.demo.entities.expense;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.example.demo.entities.currency.Currency;
+
 import javax.persistence.GeneratedValue;
 
 @Entity
@@ -14,7 +19,8 @@ public class Expense {
     private String account;
     private String category;
     private Float amount;
-    private String currency;
+    @ManyToOne
+    private Currency currency;
     private Date date;
 
     private Expense() {
@@ -28,7 +34,7 @@ public class Expense {
      * @param currency
      * @param date
      */
-    public Expense(String account, String category, Float amount, String currency, Date date) {
+    public Expense(String account, String category, Float amount, Currency currency, Date date) {
         this.account = account;
         this.category = category;
         this.amount = amount;
@@ -136,14 +142,14 @@ public class Expense {
     /**
      * @return the currency
      */
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
     /**
      * @param currency the currency to set
      */
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
