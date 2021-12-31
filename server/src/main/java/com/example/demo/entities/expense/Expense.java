@@ -3,14 +3,14 @@ package com.example.demo.entities.expense;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.example.demo.entities.currency.Currency;
-
-import javax.persistence.GeneratedValue;
 
 @Entity
 public class Expense {
@@ -21,6 +21,7 @@ public class Expense {
     private Float amount;
     @ManyToOne
     private Currency currency;
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     private Expense() {
